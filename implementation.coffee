@@ -2,7 +2,6 @@ dither = (buffer, width, options) ->
   # options fall back to the options of the dither object
   options = {} unless options?
   options.step = @options.step unless options.step?
-  options.inplace = @options.inplace unless options.inplace?
   options.findColor = @options.findColor unless options.findColor?
   options.matrix = @options.matrix unless options.matrix?
 
@@ -17,8 +16,7 @@ dither = (buffer, width, options) ->
   # calculate image height from width and buffer size
   height = buffer.length / (4 * width)
 
-  # create buffer for the result if not operating inplace
-  newBuffer = [] unless options.inplace
+  result = []
 
   # iterate over all pixels: left to right, top to bottom
   y = 0
@@ -45,26 +43,23 @@ dither = (buffer, width, options) ->
       q[b] = d[b] - newColor[2]
 
       # update d by diffusing the error q
-      diffuseError d, q, options
+      diffuseError d, q, x, y, calculateIndex, options
 
-      # write new color to output buffer
-      if options.inplace
-        applyNewColor buffer, width, newColor, i, options
-      else
-        applyNewColor newBuffer, width, newColor, i, options
+      applyNewColor result, width, newColor, i, options
 
       # end iteration
       x += options.step
     y += options.step
 
-  if options.inplace
-    return buffer
-  else
-    return newBuffer
+  return result
 
-# modifies d by diffusing the error q according to options.matrix
-diffuseError = (d, q, options) ->
-  true
+# modifies d by diffusing the error q for pixel xy according to options.matrix
+diffuseError = (d, q, x, y, calcIndex, options) ->
+  # iterate over the channels per pixel
+  for channelOffset in [0...4]
+    # diffuse to all coordinates given in the diffusion matrix
+    for entry in options.matrix
+      d[calcIndex(x + (options.step * entry.x), y + (options.step * entry.y)) + channelOffset] += entry.factor * q[channelOffset]
 
 # write the newColor to buffer for the current pixel i
 applyNewColor = (buffer, width, newColor, i, options) ->

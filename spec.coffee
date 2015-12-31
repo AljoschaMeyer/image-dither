@@ -17,7 +17,7 @@ describe 'The Dither class', ->
 
 describe 'A Dither instance', ->
   it 'saves options from the constructor', ->
-    options = {foo: 'bar', step: 2, inplace: true, findColor: 0, matrix: 2}
+    options = {foo: 'bar', step: 2, findColor: 0, matrix: 2}
     dither = new Dither options
     expect(dither.options.step).toBe 2
 
@@ -25,7 +25,6 @@ describe 'A Dither instance', ->
     options = {foo: 'bar'}
     dither = new Dither options
     expect(dither.options.step?).toBe true
-    expect(dither.options.inplace?).toBe true
     expect(dither.options.findColor?).toBe true
     expect(dither.options.matrix?).toBe true
 
@@ -46,30 +45,15 @@ describe 'The dither function', ->
 
     dither.dither buffer, 8, options
     expect(options.findColor.calls.length).toBe (64 / 4)
-  it 'returns the original buffer if options.inplace', ->
+  it 'returns a new buffer', ->
     buffer = []
     buffer.push i for i in [0...64]
-    options = {inplace: true}
-    dither = new Dither options
-    expect(dither.dither buffer, 8).toBe buffer
-  it 'returns a new buffer if not options.inplace', ->
-    buffer = []
-    buffer.push i for i in [0...64]
-    options = {inplace: false}
-    dither = new Dither options
+    dither = new Dither
     expect(dither.dither buffer, 8).not.toBe buffer
-  it 'changes the original buffer if options.inplace', ->
+  it 'does not change the original buffer', ->
     buffer = []
     buffer.push i for i in [10000...10004]
-    options = {inplace: true}
-    dither = new Dither options
-    dither.dither buffer, 1
-    expect(buffer[i]).not.toBe(10000 + i) for i in [0...buffer.length]
-  it 'does not change the original buffer if not options.inplace', ->
-    buffer = []
-    buffer.push i for i in [10000...10004]
-    options = {inplace: false}
-    dither = new Dither options
+    dither = new Dither
     dither.dither buffer, 1
     expect(buffer[i]).toBe(10000 + i) for i in [0...buffer.length]
 
@@ -94,3 +78,5 @@ describe 'The applyNewColor function', ->
           expect(buffer[(j + deltaStep) * 4 + 1]).toEqual d[1]
           expect(buffer[(j + deltaStep) * 4 + 2]).toEqual d[2]
           expect(buffer[(j + deltaStep) * 4 + 3]).toEqual d[3]
+
+# The diffuseError function is hard to test - just trust me it works?

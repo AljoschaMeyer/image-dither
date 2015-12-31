@@ -11,19 +11,16 @@ class Dither
 
   defaultOptions =
     step: 1
-    inplace: false
     findColor: defaultFindColor
     matrix: @matrices.floydSteinberg
 
   constructor: (options) ->
     @options =
       step: defaultOptions.step
-      inplace: defaultOptions.inplace
       findColor: defaultOptions.findColor
       matrix: defaultOptions.matrix
     if options?
       @options.step = options.step if options.step
-      @options.inplace = options.inplace if options.inplace
       @options.findColor = options.findColor if options.findColor
       @options.matrix = options.matrix if options.matrix
 
