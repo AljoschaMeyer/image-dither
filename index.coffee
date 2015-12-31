@@ -11,17 +11,20 @@ class Dither
 
   defaultOptions =
     step: 1
+    channels: 4
     findColor: defaultFindColor
     matrix: @matrices.floydSteinberg
 
   constructor: (options) ->
     @options =
       step: defaultOptions.step
+      channels: defaultOptions.channels
       findColor: defaultOptions.findColor
       matrix: defaultOptions.matrix
     if options?
-      @options.step = options.step if options.step
-      @options.findColor = options.findColor if options.findColor
-      @options.matrix = options.matrix if options.matrix
+      @options.step = options.step if options.step?
+      @options.channels = options.channels if options.channels?
+      @options.findColor = options.findColor if options.findColor?
+      @options.matrix = options.matrix if options.matrix?
 
   dither: require('./implementation').dither

@@ -17,7 +17,7 @@ describe 'The Dither class', ->
 
 describe 'A Dither instance', ->
   it 'saves options from the constructor', ->
-    options = {foo: 'bar', step: 2, findColor: 0, matrix: 2}
+    options = {foo: 'bar', step: 2, findColor: 0, matrix: 2, channels: 7}
     dither = new Dither options
     expect(dither.options.step).toBe 2
 
@@ -27,6 +27,7 @@ describe 'A Dither instance', ->
     expect(dither.options.step?).toBe true
     expect(dither.options.findColor?).toBe true
     expect(dither.options.matrix?).toBe true
+    expect(dither.options.channels?).toBe true
 
   it 'has a dither method', ->
     dither = new Dither
@@ -62,7 +63,7 @@ describe 'The applyNewColor function', ->
     buffer = []
     d = [0, 1, 2, 3]
     for j in [0...16]
-      impl.applyNewColor buffer, 8, d, j*4, {step: 1}
+      impl.applyNewColor buffer, 8, d, j*4, {step: 1, channels: 4}
       expect(buffer[j * 4]).toEqual d[0]
       expect(buffer[j * 4 + 1]).toEqual d[1]
       expect(buffer[j * 4 + 2]).toEqual d[2]
@@ -72,11 +73,11 @@ describe 'The applyNewColor function', ->
       buffer = []
       d = [Math.random()]
       for j in [0...16]
-        impl.applyNewColor buffer, 8, d, j*4*step, {step: step}
+        impl.applyNewColor buffer, 8, d, j*4*step, {step: step, channels: 4}
         for deltaStep in [0...step]
           expect(buffer[(j + deltaStep) * 4]).toEqual d[0]
           expect(buffer[(j + deltaStep) * 4 + 1]).toEqual d[1]
           expect(buffer[(j + deltaStep) * 4 + 2]).toEqual d[2]
           expect(buffer[(j + deltaStep) * 4 + 3]).toEqual d[3]
 
-# The diffuseError function is hard to test - just trust me it works?
+# The diffuseError function is hard to test - just trust me the math is correct?
