@@ -38,9 +38,10 @@ dither = (buffer, width, options) ->
 
       # the absolute error between the original color and the new color
       q = []
-      q[r] = d[r] - newColor[0]
-      q[g] = d[g] - newColor[1]
-      q[b] = d[b] - newColor[2]
+      q[0] = d[r] - newColor[0]
+      q[1] = d[g] - newColor[1]
+      q[2] = d[b] - newColor[2]
+      q[3] = d[a] - newColor[3]
 
       # update d by diffusing the error q
       diffuseError d, q, x, y, calculateIndex, options
@@ -59,7 +60,8 @@ diffuseError = (d, q, x, y, calcIndex, options) ->
   for channelOffset in [0...4]
     # diffuse to all coordinates given in the diffusion matrix
     for entry in options.matrix
-      d[calcIndex(x + (options.step * entry.x), y + (options.step * entry.y)) + channelOffset] += entry.factor * q[channelOffset]
+      index = calcIndex(x + (options.step * entry.x), y + (options.step * entry.y)) + channelOffset
+      d[index] += (entry.factor * q[channelOffset])
 
 # write the newColor to buffer for the current pixel i
 applyNewColor = (buffer, width, newColor, i, options) ->
