@@ -1,4 +1,4 @@
-dither = (buffer, width) ->
+dither = (buffer, width, options) ->
 
 module.exports =
   dither: dither

@@ -30,7 +30,7 @@ var ditheredImg = dither.dither(img, imgWidth);
 
 `require('image-dither')` returns the `Dither` class, whose instances provide the following methods:
 
-##### dither(buffer, width)
+##### dither(buffer, width, options)
 This method takes a buffer or array representing the image to dither. The buffer is expected to consecutively store the r, g, b and a values for all pixels. An example is the buffer used by [jimp](https://www.npmjs.com/package/jimp). The second argument is the width of the image - the engine needs to know where new lines start.
 
 Returns an array of the rgba values for all pixels of the new image and does not modify the passed buffer directly by default.
@@ -67,4 +67,4 @@ The error diffusion matrix. The following matrices, all taken from [this helpful
 
 Defaults to `Dither.matrices.floydSteinberg`.
 
-To specify your own error diffusion matrices, take a look at the implementation of the matrces above. That should be easier than explaining it here. Good luck.
+To specify your own error diffusion matrices, take a look at the implementation of the matrices above in `matrices.coffee`. That should be easier than explaining it here. Good luck.
