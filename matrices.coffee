@@ -20,3 +20,4 @@ module.exports =
   sierra3: false
   sierra2: false
   sierraLite: false
+  none: []
