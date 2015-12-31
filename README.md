@@ -65,4 +65,6 @@ The error diffusion matrix. The following matrices, all taken from [this helpful
 - `Dither.matrices.sierra3`
 - `Dither.matrices.stucki`
 
+Defaults to `Dither.matrices.floydSteinberg`.
+
 To specify your own error diffusion matrices, take a look at the implementation of the matrces above. That should be easier than explaining it here. Good luck.

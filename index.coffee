@@ -1,10 +1,5 @@
 module.exports =
 class Dither
-  constructor: (@options) ->
-
-  dither: (buffer, width) ->
-
-  ditherInplace: (buffer, width) ->
 
   @matrices =
     oneDimensional: false
@@ -16,3 +11,28 @@ class Dither
     sierra3: false
     sierra2: false
     sierraLite: false
+
+  defaultFindColor = (rgb) ->
+    if (rgb[0] * 0.3 + rgb[1] * 0.59 + rgb[2] * 0.11) < 127
+      return [0, 0, 0, 100]
+    else
+      return [100, 100, 100, 100]
+
+  defaultOptions =
+    step: 1
+    findColor: defaultFindColor
+    matrix: @matrices.floydSteinberg
+
+  constructor: (options) ->
+    unless options?
+      @options = defaultOptions
+    else
+      @options = options
+      @options.step = defaultOptions.step unless @options.step?
+      @options.findColor = defaultOptions.findColor unless @options.findColor?
+      @options.matrix = defaultOptions.matrix unless @options.matrix?
+
+
+  dither: (buffer, width) ->
+
+  ditherInplace: (buffer, width) ->
