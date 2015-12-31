@@ -25,14 +25,11 @@ class Dither
     matrix: @matrices.floydSteinberg
 
   constructor: (options) ->
-    unless options?
-      @options = defaultOptions
-    else
-      @options = options
-      @options.step = defaultOptions.step unless @options.step?
-      @options.inplace = defaultOptions.inplace unless @options.inplace?
-      @options.findColor = defaultOptions.findColor unless @options.findColor?
-      @options.matrix = defaultOptions.matrix unless @options.matrix?
-
+    @options = defaultOptions
+    if options?
+      @options.step = options.step if options.step
+      @options.inplace = options.inplace if options.inplace
+      @options.findColor = options.findColor if options.findColor
+      @options.matrix = options.matrix if options.matrix
 
   dither: (buffer, width) ->

@@ -16,9 +16,8 @@ describe 'The Dither class', ->
 
 describe 'A Dither instance', ->
   it 'saves options from the constructor', ->
-    options = {foo: 'bar', step: 2}
+    options = {foo: 'bar', step: 2, inplace: true, findColor: 0, matrix: 2}
     dither = new Dither options
-    expect(dither.options.foo).toBe 'bar'
     expect(dither.options.step).toBe 2
 
   it 'uses default options', ->
