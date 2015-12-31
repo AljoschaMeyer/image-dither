@@ -1,0 +1,28 @@
+{
+  "name": "image-dither",
+  "version": "1.0.0",
+  "description": "low-level error diffusion image dithering implementation",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine-node spec.coffee --coffee --matchall",
+    "prepublish": "npm run compile",
+    "compile": "coffee --compile index.coffee"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AljoschaMeyer/image-dither.git"
+  },
+  "keywords": [
+    "image",
+    "dither"
+  ],
+  "author": "Aljoscha Meyer <aljoscha.meyer@uni-oldenburg.de>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AljoschaMeyer/image-dither/issues"
+  },
+  "homepage": "https://github.com/AljoschaMeyer/image-dither#readme",
+  "devDependencies": {
+    "jasmine-node": "^1.14.5"
+  }
+}
