@@ -23,4 +23,4 @@ class Dither
       @options.findColor = options.findColor if options.findColor
       @options.matrix = options.matrix if options.matrix
 
-  dither: (buffer, width) ->
+  dither: require('./implementation').dither
