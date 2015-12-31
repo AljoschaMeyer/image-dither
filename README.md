@@ -55,14 +55,14 @@ The default function expects and returns rgba values from 0 to 255 and returns e
 
 ##### matrix
 The error diffusion matrix. The following matrices, all taken from [this helpful article on dithering](http://www.tannerhelland.com/4660/dithering-eleven-algorithms-source-code/), are built in:
-- `Dither.matrices.oneDimensional`
-- `Dither.matrices.floydSteinberg`
-- `Dither.matrices.jarvisJudiceNinke`
-- `Dither.matrices.stucki`
 - `Dither.matrices.atkinson`
 - `Dither.matrices.burkes`
-- `Dither.matrices.sierra3`
-- `Dither.matrices.sierra2`
+- `Dither.matrices.floydSteinberg`
+- `Dither.matrices.jarvisJudiceNinke`
+- `Dither.matrices.oneDimensional`
 - `Dither.matrices.sierraLite`
+- `Dither.matrices.sierra2`
+- `Dither.matrices.sierra3`
+- `Dither.matrices.stucki`
 
 To specify your own error diffusion matrices, take a look at the implementation of the matrces above. That should be easier than explaining it here. Good luck.
