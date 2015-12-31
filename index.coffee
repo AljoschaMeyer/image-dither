@@ -20,6 +20,7 @@ class Dither
 
   defaultOptions =
     step: 1
+    inplace: false
     findColor: defaultFindColor
     matrix: @matrices.floydSteinberg
 
@@ -29,10 +30,9 @@ class Dither
     else
       @options = options
       @options.step = defaultOptions.step unless @options.step?
+      @options.inplace = defaultOptions.inplace unless @options.inplace?
       @options.findColor = defaultOptions.findColor unless @options.findColor?
       @options.matrix = defaultOptions.matrix unless @options.matrix?
 
 
   dither: (buffer, width) ->
-
-  ditherInplace: (buffer, width) ->

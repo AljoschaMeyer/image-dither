@@ -33,10 +33,7 @@ var ditheredImg = dither.dither(img, imgWidth);
 ##### dither(buffer, width)
 This method takes a buffer or array representing the image to dither. The buffer is expected to consecutively store the r, g, b and a values for all pixels. An example is the buffer used by [jimp](https://www.npmjs.com/package/jimp). The second argument is the width of the image - the engine needs to know where new lines start.
 
-Returns an array of the rgba values for all pixels of the new image. Does not modify the passed buffer directly.
-
-##### ditherInplace(buffer, width)
-Same as above, but this actually changes the passed buffer and then returns it.
+Returns an array of the rgba values for all pixels of the new image and does not modify the passed buffer directly by default.
 
 #### Options
 The following options can be set by passing an `options` object to the `Dither` constructor, by accessing the `options` object exposed by each `Dither` instance, or by passing an `options` object to the `dither()` or `ditherInplace()` methods.
@@ -45,6 +42,9 @@ The options passed to the methods only apply to this method call, and overrule t
 
 ##### step
 The height and length for a 'pixel' in the output. Bigger step means lower resolution. Defaults to 1.
+
+##### inplace
+Set to true to modify the passed buffer inplace and return it. Defaults to false.
 
 ##### findColor(rgba)
 This function is called once for each pixel with the pixel's color (error diffusion included) and should return the color to use in the output image. Colors are passed (and expected) as an array of length 4. Typically these contain r, g, b and a values - or whatever the buffer contained or should contain: image-dither doesn't care.

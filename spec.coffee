@@ -25,13 +25,10 @@ describe 'A Dither instance', ->
     options = {foo: 'bar'}
     dither = new Dither options
     expect(dither.options.step?).toBe true
+    expect(dither.options.inplace?).toBe true
     expect(dither.options.findColor?).toBe true
     expect(dither.options.matrix?).toBe true
 
   it 'has a dither method', ->
     dither = new Dither
     expect(typeof dither.dither).toBe 'function'
-
-  it 'has a ditherInplace method', ->
-    dither = new Dither
-    expect(typeof dither.ditherInplace).toBe 'function'
