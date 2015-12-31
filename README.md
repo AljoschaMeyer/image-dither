@@ -48,7 +48,7 @@ This function is called once for each pixel with the pixel's color (error diffus
 
 The implementation of this function is left to the user, and determines palette choice and color distance metric.
 
-The default function expects and returns rgba values from 0 to 255 and returns either `0,0,0,100` or `255,255,255,100`, based on brightness.
+The default function expects and returns rgba values from 0 to 255 and returns either `0,0,0,255` or `255,255,255,255`, based on brightness.
 
 ##### matrix
 The error diffusion matrix. The following matrices, all taken from [this helpful article on dithering](http://www.tannerhelland.com/4660/dithering-eleven-algorithms-source-code/), are built in:

@@ -5,9 +5,9 @@ class Dither
 
   defaultFindColor = (rgb) ->
     if (rgb[0] * 0.3 + rgb[1] * 0.59 + rgb[2] * 0.11) < 127
-      return [0, 0, 0, 100]
+      return [0, 0, 0, 255]
     else
-      return [100, 100, 100, 100]
+      return [255, 255, 255, 255]
 
   defaultOptions =
     step: 1
