@@ -1,6 +1,14 @@
 Dither = require './index'
 impl = require './implementation'
 
+defaultOptions = ->
+  return options =
+    step: 1
+    channels: 4
+    findColor: (rgba) ->
+      return [0, 0, 0, 0]
+    matrix: []
+
 describe 'The Dither class', ->
   it 'provides access to multiple diffusion matrices', ->
     expect(Dither.matrices?).toBe true
@@ -34,18 +42,16 @@ describe 'A Dither instance', ->
     expect(typeof dither.dither).toBe 'function'
 
 describe 'The dither function', ->
-  it 'calls findColor once per pixel', ->
+  it 'calls handlePixel on every step-th pixel', ->
     buffer = []
     buffer.push i for i in [0...64]
-    options =
-      findColor: (rgba) ->
-        return rgba
     dither = new Dither
-
-    spyOn(options, 'findColor').andCallThrough()
-
-    dither.dither buffer, 8, options
-    expect(options.findColor.calls.length).toBe (64 / 4)
+    spyOn(impl, 'handlePixel')
+    for step in [1...5]
+      options = defaultOptions()
+      options.step = step
+      impl.dither buffer, 8, options
+    expect(impl.handlePixel.calls.length).toBe 25
   it 'returns a new buffer', ->
     buffer = []
     buffer.push i for i in [0...64]
@@ -57,6 +63,21 @@ describe 'The dither function', ->
     dither = new Dither
     dither.dither buffer, 1
     expect(buffer[i]).toBe(10000 + i) for i in [0...buffer.length]
+
+describe 'The handlePixel function', ->
+    it 'calls findColor for the pixel', ->
+      result = []
+      buffer = []
+      buffer.push i for i in [0...64]
+      options = defaultOptions()
+      spyOn(options, 'findColor').andCallThrough()
+
+      for x in [0...8]
+        for y in [0...8]
+          impl.handlePixel x, y, buffer, result, 1, options
+          for i in options.findColor.mostRecentCall.args.length
+            expect(options.findColor.mostRecentCall.args[i]).toBe 4*x*y
+      expect(options.findColor.calls.length).toBe 64
 
 describe 'The applyNewColor function', ->
   it 'writes the content of d into buffer for options.step == 1', ->
@@ -80,4 +101,32 @@ describe 'The applyNewColor function', ->
           expect(buffer[(j + deltaStep) * 4 + 2]).toEqual d[2]
           expect(buffer[(j + deltaStep) * 4 + 3]).toEqual d[3]
 
-# The diffuseError function is hard to test - just trust me the math is correct?
+describe 'The error diffusion function', ->
+  it 'diffuses the correct error witht the correct factor to the correct pixels', ->
+    width = 8
+    matrix = []
+    for x in [0..2]
+      for y in [0..2]
+        entry =
+          x: x
+          y: y
+          factor: x * y
+        matrix.push entry
+
+    for channels in [1...5]
+      d = []
+      original = []
+      for i in [0...1000]
+        d[i] = i
+        original[i] = i
+
+      q = []
+      q[c] = c for c in [0...channels]
+      options = defaultOptions()
+      options.channels = channels
+      options.matrix = matrix
+
+      impl.diffuseError d, q, 0, 0, 8, options
+      for entry in options.matrix
+        for c in [0...channels]
+          expect(d[impl.calculateIndex(entry.x, entry.y, width, channels) + c]).toBe(original[impl.calculateIndex(entry.x, entry.y, width, channels) + c] + entry.factor * q[c])
