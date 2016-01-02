@@ -14,5 +14,8 @@ Uses different diffusion factors while keeping all other parameters consistent.
 #### clip.coffee
 Clips to valid rgba values after error calculation.
 
+#### step.coffee
+Demonstrates the step option.
+
 #### deltae.coffee
 A more complex example which dithers a three channel LAB-color array.
