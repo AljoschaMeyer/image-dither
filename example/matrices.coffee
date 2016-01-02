@@ -1,7 +1,6 @@
 # An example showcasing all built-in diffusion matrices.
 Dither = require '../index'
 
-convert = require 'color-convert'
 Jimp = require 'jimp'
 
 # read the image from disk using jimp
