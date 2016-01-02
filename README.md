@@ -27,7 +27,7 @@ var ditheredImg = dither.dither(img, imgWidth);
 ```
 
 ### Usage
-`example.coffee` exists and is helpful.
+The `example` folder contains helpful examples demonstrating basic usage as well as more complex stuff.
 
 `require('image-dither')` returns the `Dither` class, whose instances provide the following methods:
 

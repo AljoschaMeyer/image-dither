@@ -23,6 +23,9 @@
   },
   "homepage": "https://github.com/AljoschaMeyer/image-dither#readme",
   "devDependencies": {
-    "jasmine-node": "^1.14.5"
+    "color-convert": "^0.7.0",
+    "delta-e": "0.0.7",
+    "jasmine-node": "^1.14.5",
+    "jimp": "^0.2.21"
   }
 }

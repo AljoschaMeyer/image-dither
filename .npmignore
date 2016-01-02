@@ -1,1 +1,5 @@
 *.coffee
+example.*
+example
+*.png
+*.jpg
