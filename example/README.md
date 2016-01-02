@@ -11,5 +11,8 @@ Uses all built-in diffusion matrices while keeping all other parameters consiste
 #### diffusion.coffee
 Uses different diffusion factors while keeping all other parameters consistent.
 
+#### clip.coffee
+Clips to valid rgba values after error calculation.
+
 #### deltae.coffee
 A more complex example which dithers a three channel LAB-color array.
