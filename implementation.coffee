@@ -3,6 +3,7 @@ dither = (buffer, width, options) ->
   options = {} unless options?
   options.step = @options.step unless options.step?
   options.channels = @options.channels unless options.channels?
+  options.diffusionFactor = @options.diffusionFactor unless options.diffusionFactor?
   options.findColor = @options.findColor unless options.findColor?
   options.matrix = @options.matrix unless options.matrix?
 
@@ -44,7 +45,7 @@ handlePixel = (x, y, d, result, width, options) ->
 
   # the absolute error between the original color and the new color
   q = []
-  q[j] = d[i + j] - newColor[j] for j in [0...options.channels]
+  q[j] = (d[i + j] - newColor[j]) * options.diffusionFactor for j in [0...options.channels]
 
   # update d by diffusing the error q
   diffuseError d, q, x, y, width, options
@@ -53,7 +54,6 @@ handlePixel = (x, y, d, result, width, options) ->
 
 # modifies d by diffusing the error q for pixel xy according to options.matrix
 diffuseError = (d, q, x, y, width, options) ->
-  # TODO implement reduced color bleed option
   for entry in options.matrix
     index = calculateIndex x + (options.step * entry.x), y + (options.step * entry.y), width, options.channels
     for channelOffset in [0...options.channels]

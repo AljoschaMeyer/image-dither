@@ -5,6 +5,7 @@ defaultOptions = ->
   return options =
     step: 1
     channels: 4
+    diffusionFactor: 1
     findColor: (rgba) ->
       return [0, 0, 0, 0]
     matrix: []
@@ -34,6 +35,7 @@ describe 'A Dither instance', ->
     dither = new Dither options
     expect(dither.options.step?).toBe true
     expect(dither.options.findColor?).toBe true
+    expect(dither.options.diffusionFactor?).toBe true
     expect(dither.options.matrix?).toBe true
     expect(dither.options.channels?).toBe true
 

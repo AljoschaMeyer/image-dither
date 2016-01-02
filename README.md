@@ -27,6 +27,7 @@ var ditheredImg = dither.dither(img, imgWidth);
 ```
 
 ### Usage
+`example.coffee` exists and is helpful.
 
 `require('image-dither')` returns the `Dither` class, whose instances provide the following methods:
 
@@ -46,8 +47,11 @@ The height and length for a 'pixel' in the output. Bigger step means lower resol
 ##### channels
 The number of channels per pixel stored in the buffer. Defaults to 4.
 
-##### findColor(rgba)
-This function is called once for each pixel with the pixel's color (error diffusion included) and should return the color to use in the output image. Colors are passed (and expected) as an array of length 4. Typically these contain r, g, b and a values - or whatever the buffer contained or should contain: image-dither doesn't care.
+##### diffusionFactor
+The diffused error is multiplied with this factor before being added. Defaults to 1.
+
+##### findColor(channelarray)
+This function is called once for each pixel with the pixel's color (error diffusion included) and should return the color to use in the output image. Colors are passed (and expected) as an array with the values for each channel.
 
 The implementation of this function is left to the user, and determines palette choice and color distance metric.
 
@@ -68,4 +72,4 @@ The error diffusion matrix. The following matrices, all taken from [this helpful
 
 Defaults to `Dither.matrices.floydSteinberg`.
 
-To specify your own error diffusion matrices, take a look at the implementation of the matrices above in `matrices.coffee`. That should be easier than explaining it here. Good luck.
+To specify your own error diffusion matrices, take a look at the implementation of the matrices above in `matrices.coffee`. That should be easier than explaining it here.
