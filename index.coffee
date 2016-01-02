@@ -12,7 +12,7 @@ class Dither
   defaultOptions =
     step: 1
     channels: 4
-    diffusionFactor: 1
+    diffusionFactor: 0.9
     clip: (buffer, index) ->
     findColor: defaultFindColor
     matrix: @matrices.floydSteinberg

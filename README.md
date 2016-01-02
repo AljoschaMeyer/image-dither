@@ -48,7 +48,7 @@ The height and length for a 'pixel' in the output. Bigger step means lower resol
 The number of channels per pixel stored in the buffer. Defaults to 4.
 
 ##### diffusionFactor
-The diffused error is multiplied with this factor before being added. Defaults to 1.
+The diffused error is multiplied with this factor before being added. Defaults to 0.9, which looks better most of the time.
 
 ##### clip(buffer, index)
 This is called after setting the channel-values for a pixel in the error buffer, and can be used to e.g. clip values to fit into the color space dimensions. `buffer[index]` is the value for the first channel, `buffer[index+1]` for the second channel, and so on. Does nothing by default.
