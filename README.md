@@ -50,6 +50,9 @@ The number of channels per pixel stored in the buffer. Defaults to 4.
 ##### diffusionFactor
 The diffused error is multiplied with this factor before being added. Defaults to 1.
 
+##### clip(buffer, index)
+This is called after setting the channel-values for a pixel in the error buffer, and can be used to e.g. clip values to fit into the color space dimensions. `buffer[index]` is the value for the first channel, `buffer[index+1]` for the second channel, and so on. Does nothing by default.
+
 ##### findColor(channelarray)
 This function is called once for each pixel with the pixel's color (error diffusion included) and should return the color to use in the output image. Colors are passed (and expected) as an array with the values for each channel.
 

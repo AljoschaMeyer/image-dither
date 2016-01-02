@@ -13,6 +13,7 @@ class Dither
     step: 1
     channels: 4
     diffusionFactor: 1
+    clip: (buffer, index) ->
     findColor: defaultFindColor
     matrix: @matrices.floydSteinberg
 
@@ -21,12 +22,14 @@ class Dither
       step: defaultOptions.step
       channels: defaultOptions.channels
       diffusionFactor: defaultOptions.diffusionFactor
+      clip: defaultOptions.clip
       findColor: defaultOptions.findColor
       matrix: defaultOptions.matrix
     if options?
       @options.step = options.step if options.step?
       @options.channels = options.channels if options.channels?
       @options.diffusionFactor = options.diffusionFactor if options.diffusionFactor?
+      @options.clip = options.clip if options.clip?
       @options.findColor = options.findColor if options.findColor?
       @options.matrix = options.matrix if options.matrix?
 

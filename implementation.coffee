@@ -4,6 +4,7 @@ dither = (buffer, width, options) ->
   options.step = @options.step unless options.step?
   options.channels = @options.channels unless options.channels?
   options.diffusionFactor = @options.diffusionFactor unless options.diffusionFactor?
+  options.clip = @options.clip unless options.clip?
   options.findColor = @options.findColor unless options.findColor?
   options.matrix = @options.matrix unless options.matrix?
 
@@ -58,11 +59,7 @@ diffuseError = (d, q, x, y, width, options) ->
     index = calculateIndex x + (options.step * entry.x), y + (options.step * entry.y), width, options.channels
     for channelOffset in [0...options.channels]
       d[index + channelOffset] += (entry.factor * q[channelOffset])
-      # TODO implement clipping
-      #if (d[index + channelOffset] > 255)
-        #d[index + channelOffset] = 255
-      #if (d[index + channelOffset] < 0)
-        #d[index + channelOffset] = 0
+    options.clip d, index
 
 # write the newColor to buffer for the current pixel i
 applyNewColor = (buffer, width, newColor, i, options) ->
