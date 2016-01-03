@@ -1,4 +1,4 @@
-index.js
+*.js
 *.png
 
 # from https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore

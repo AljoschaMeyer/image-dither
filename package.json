@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jasmine-node spec.coffee --coffee --matchall",
     "prepublish": "npm run compile",
-    "compile": "coffee --compile index.coffee"
+    "compile": "coffee --compile *.coffee"
   },
   "repository": {
     "type": "git",
