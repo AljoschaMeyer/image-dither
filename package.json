@@ -1,6 +1,6 @@
 {
   "name": "image-dither",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "low-level error diffusion image dithering implementation",
   "main": "index.js",
   "scripts": {
