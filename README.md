@@ -4,7 +4,10 @@
 
 Low level engine for error diffusion image dithering. Takes a buffer or an array of rgba values and applies dithering. Options for dithering include the error diffusion matrix (some common matrices are built-in), color palette, color distance metric and output 'pixel' size.
 
-Beware, this is not particulary optimized.
+## Warning
+This implementation works, but does a lot of suboptimal things. It should clearly use streams, but it doesn't. It should be implemented in a functional way, but it isn't. Some simple optimizations could have been done, but they weren't.
+
+If you happen to know of an alternative to this modules, please tell me about it and I'll gladly deprecate this. That being said, this still gets the job done of dithering an image with arbitrary diffusion matrices.
 
 ### Installation
 
